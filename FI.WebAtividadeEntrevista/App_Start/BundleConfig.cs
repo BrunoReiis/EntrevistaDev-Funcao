@@ -17,6 +17,10 @@ namespace FI.WebAtividadeEntrevista
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
+            //Adicionando jquery mask
+            bundles.Add(new ScriptBundle("~/bundles/jquerymask").Include(
+                        "~/Scripts/jquery.mask.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
