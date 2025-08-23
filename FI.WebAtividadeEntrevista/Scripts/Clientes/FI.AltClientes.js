@@ -10,10 +10,16 @@ $(document).ready(function () {
         $('#formCadastro #Cidade').val(obj.Cidade);
         $('#formCadastro #Logradouro').val(obj.Logradouro);
         $('#formCadastro #Telefone').val(obj.Telefone);
+        $('#formCadastro #CPF').val(obj.CPF);
     }
+
+    $('#formCadastro #CPF').mask('000.000.000-00');
+    $('#formCadastro #CEP').mask('00000-000');
+    $('#formCadastro #Telefone').mask('(00) 00000-0000');
 
     $('#formCadastro').submit(function (e) {
         e.preventDefault();
+        var cpfSemMask = $('#formCadastro #CPF').val().replace(/\D/g, '');
         
         $.ajax({
             url: urlPost,
@@ -27,7 +33,8 @@ $(document).ready(function () {
                 "Estado": $(this).find("#Estado").val(),
                 "Cidade": $(this).find("#Cidade").val(),
                 "Logradouro": $(this).find("#Logradouro").val(),
-                "Telefone": $(this).find("#Telefone").val()
+                "Telefone": $(this).find("#Telefone").val(),
+                "CPF": cpfSemMask
             },
             error:
             function (r) {

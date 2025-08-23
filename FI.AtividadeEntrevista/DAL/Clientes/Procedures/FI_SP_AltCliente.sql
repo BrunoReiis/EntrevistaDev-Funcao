@@ -1,4 +1,7 @@
-﻿CREATE PROC FI_SP_AltCliente
+﻿IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'FI_SP_AltCliente')
+    DROP PROCEDURE FI_SP_AltCliente;
+GO
+CREATE PROC FI_SP_AltCliente
     @NOME          VARCHAR (50) ,
     @SOBRENOME     VARCHAR (255),
     @NACIONALIDADE VARCHAR (50) ,
@@ -8,7 +11,8 @@
     @LOGRADOURO    VARCHAR (500),
     @EMAIL         VARCHAR (2079),
     @TELEFONE      VARCHAR (15),
-	@Id           BIGINT
+	@Id            BIGINT,
+	@CPF		   VARCHAR (11)
 AS
 BEGIN
 	UPDATE CLIENTES 
@@ -21,6 +25,7 @@ BEGIN
 		CIDADE = @CIDADE, 
 		LOGRADOURO = @LOGRADOURO, 
 		EMAIL = @EMAIL, 
-		TELEFONE = @TELEFONE
+		TELEFONE = @TELEFONE,
+		CPF = @CPF
 	WHERE Id = @Id
 END

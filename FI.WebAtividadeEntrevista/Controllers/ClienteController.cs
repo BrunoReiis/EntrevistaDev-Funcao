@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FI.AtividadeEntrevista.DML;
+using System.Text.RegularExpressions;
 
 namespace WebAtividadeEntrevista.Controllers
 {
@@ -36,11 +37,21 @@ namespace WebAtividadeEntrevista.Controllers
                 Response.StatusCode = 400;
                 return Json(string.Join(Environment.NewLine, erros));
             }
+            if (!ValidarCPF(model.CPF))
+            {
+                Response.StatusCode = 400;
+                return Json("CPF invalido!");
+            }
+            if (bo.VerificarExistencia(model.CPF))
+            {
+                Response.StatusCode = 400;
+                return Json("Já existe um cliente cadastrado com o CPF informado");
+            }
             else
             {
-                
+
                 model.Id = bo.Incluir(new Cliente()
-                {                    
+                {
                     CEP = model.CEP,
                     Cidade = model.Cidade,
                     Email = model.Email,
@@ -49,10 +60,11 @@ namespace WebAtividadeEntrevista.Controllers
                     Nacionalidade = model.Nacionalidade,
                     Nome = model.Nome,
                     Sobrenome = model.Sobrenome,
-                    Telefone = model.Telefone
+                    Telefone = model.Telefone,
+                    CPF = model.CPF
                 });
 
-           
+
                 return Json("Cadastro efetuado com sucesso");
             }
         }
@@ -71,6 +83,19 @@ namespace WebAtividadeEntrevista.Controllers
                 Response.StatusCode = 400;
                 return Json(string.Join(Environment.NewLine, erros));
             }
+            if (!ValidarCPF(model.CPF))
+            {
+                Response.StatusCode = 400;
+                return Json("CPF invalido!");
+            }
+
+            bool existeCPF = bo.VerificarExistencia(model.CPF, model.Id);
+            if (existeCPF)
+            {
+                Response.StatusCode = 400;
+                return Json("Já existe um cliente cadastrado com o CPF informado");
+            }
+
             else
             {
                 bo.Alterar(new Cliente()
@@ -84,7 +109,8 @@ namespace WebAtividadeEntrevista.Controllers
                     Nacionalidade = model.Nacionalidade,
                     Nome = model.Nome,
                     Sobrenome = model.Sobrenome,
-                    Telefone = model.Telefone
+                    Telefone = model.Telefone,
+                    CPF = model.CPF
                 });
                                
                 return Json("Cadastro alterado com sucesso");
@@ -111,7 +137,8 @@ namespace WebAtividadeEntrevista.Controllers
                     Nacionalidade = cliente.Nacionalidade,
                     Nome = cliente.Nome,
                     Sobrenome = cliente.Sobrenome,
-                    Telefone = cliente.Telefone
+                    Telefone = cliente.Telefone,
+                    CPF = cliente.CPF
                 };
 
             
@@ -145,6 +172,34 @@ namespace WebAtividadeEntrevista.Controllers
             {
                 return Json(new { Result = "ERROR", Message = ex.Message });
             }
+        }
+        public static bool ValidarCPF(string cpf)
+        {
+            if (string.IsNullOrWhiteSpace(cpf)) return false;
+
+            cpf = Regex.Replace(cpf, @"[^\d]", "");
+
+            if (cpf.Length != 11) return false;
+
+            if (new string(cpf[0], cpf.Length) == cpf) return false;
+
+            int soma = 0;
+            for (int i = 0; i < 9; i++)
+                soma += (cpf[i] - '0') * (10 - i);
+
+            int resto = (soma * 10) % 11;
+            if (resto == 10) resto = 0;
+            if (resto != (cpf[9] - '0')) return false;
+
+            soma = 0;
+            for (int i = 0; i < 10; i++)
+                soma += (cpf[i] - '0') * (11 - i);
+
+            resto = (soma * 10) % 11;
+            if (resto == 10) resto = 0;
+            if (resto != (cpf[10] - '0')) return false;
+
+            return true;
         }
     }
 }
