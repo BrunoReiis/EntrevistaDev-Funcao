@@ -1,7 +1,7 @@
-﻿IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'FI_SP_PesqCliente')
-    DROP PROCEDURE FI_SP_PesqCliente;
+﻿IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'FI_SP_PesqCliente_V2')
+    DROP PROCEDURE FI_SP_PesqCliente_V2;
 GO
-CREATE PROC FI_SP_PesqCliente
+CREATE PROC FI_SP_PesqCliente_V2
 	@iniciarEm int,
 	@quantidade int,
 	@campoOrdenacao varchar(200),

@@ -1,7 +1,7 @@
-﻿IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'FI_SP_ConsCliente')
-    DROP PROCEDURE FI_SP_ConsCliente;
+﻿IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'FI_SP_ConsCliente_V2')
+    DROP PROCEDURE FI_SP_ConsCliente_V2;
 GO
-CREATE PROC FI_SP_ConsCliente
+CREATE PROC FI_SP_ConsCliente_V2
 	@ID BIGINT
 AS
 BEGIN

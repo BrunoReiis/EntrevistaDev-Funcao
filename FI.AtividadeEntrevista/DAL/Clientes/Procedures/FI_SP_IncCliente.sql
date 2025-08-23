@@ -1,7 +1,7 @@
-﻿IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'FI_SP_IncClienteV2')
-    DROP PROCEDURE FI_SP_IncClienteV2;
+﻿IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'FI_SP_IncCliente_V3')
+    DROP PROCEDURE FI_SP_IncCliente_V3;
 GO
-CREATE PROC FI_SP_IncClienteV2
+CREATE PROC FI_SP_IncCliente_V3
     @NOME          VARCHAR (50) ,
     @SOBRENOME     VARCHAR (255),
     @NACIONALIDADE VARCHAR (50) ,
