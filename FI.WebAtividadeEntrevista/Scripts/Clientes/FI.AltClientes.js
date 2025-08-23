@@ -44,10 +44,33 @@ $(document).ready(function () {
                     ModalDialog("Ocorreu um erro", "Ocorreu um erro interno no servidor.");
             },
             success:
-            function (r) {
-                ModalDialog("Sucesso!", r)
-                $("#formCadastro")[0].reset();                                
-                window.location.href = urlRetorno;
+                function (r) {
+                    let beneficiarios = [];
+                    $('#gridBeneficiarios tbody tr').each(function () {
+                        const cpf = $(this).find('td:eq(0)').text().replace(/\D/g, '');
+                        const nome = $(this).find('td:eq(1)').text();
+                        const ClienteID = r;
+                        beneficiarios.push({ CPF: cpf, Nome: nome, IdCliente: ClienteID });
+                    });
+
+                    $.ajax({
+                        url: urlBeneAlt,
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            idCliente: r,          
+                            lista: beneficiarios      
+                        }),
+                        success: function () {
+                            ModalDialog("Sucesso", "Cliente e beneficiários salvos com sucesso!");
+                            $("#formCadastro")[0].reset();
+                            $('#gridBeneficiarios tbody').empty();
+                            window.location.href = urlRetorno;
+                        },
+                        error: function (msg) {
+                            ModalDialog("Erro", msg.responseText);
+                        }
+                    });                              
             }
         });
     })

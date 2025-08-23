@@ -1,0 +1,52 @@
+﻿<div id="modalBeneficiario" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Beneficiários</h4>
+            </div>
+            <div class="modal-body">
+                <form id="formBeneficiario" method="post" class="row">
+                    <input type="hidden" id="itemBeneficiarioId" name="itemBeneficiarioId" value="-1">
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="itemBeneficiarioCPF">CPF:</label>
+                            <input required="required" type="text" class="form-control" id="itemBeneficiarioCPF" name="itemBeneficiarioCPF" placeholder="Ex.: 000.000.000-00" maxlength="14">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="itemBeneficiarioNome">Nome:</label>
+                            <input required="required" type="text" class="form-control" id="itemBeneficiarioNome" name="itemBeneficiarioNome" placeholder="Ex.: Maria" maxlength="50">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>&nbsp;</label>
+                            <button type="submit" id="btnSalvarBeneficiario" class="btn btn-success btn-block" style="font-weight: bold">Incluir</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row" style="overflow:hidden;">
+                    <table id="gridBeneficiarios" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>CPF</th>
+                                <th>Nome</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Lista dos Beneficiarios -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

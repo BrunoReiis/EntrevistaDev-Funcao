@@ -30,10 +30,29 @@ $(document).ready(function () {
                 else if (r.status == 500)
                     ModalDialog("Ocorreu um erro", "Ocorreu um erro interno no servidor.");
             },
-            success:
-            function (r) {
-                ModalDialog("Sucesso!", r)
-                $("#formCadastro")[0].reset();
+            success: function (r) {
+                let beneficiarios = [];
+                $('#gridBeneficiarios tbody tr').each(function () {
+                    const cpf = $(this).find('td:eq(0)').text().replace(/\D/g, '');
+                    const nome = $(this).find('td:eq(1)').text();
+                    const ClienteID = r;
+                    beneficiarios.push({ CPF: cpf, Nome: nome, IdCliente: ClienteID });
+                });
+
+                $.ajax({
+                    url: urlPostBeneficiario,
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(beneficiarios),
+                    success: function () {
+                        ModalDialog("Sucesso", "Cliente e beneficiários salvos com sucesso!");
+                        $("#formCadastro")[0].reset();
+                        $('#gridBeneficiarios tbody').empty();
+                    },
+                    error: function () {
+                        ModalDialog("Erro", "Cliente salvo, mas houve erro ao salvar beneficiários.");
+                    }
+                });
             }
         });
     })

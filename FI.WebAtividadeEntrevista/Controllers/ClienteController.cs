@@ -64,8 +64,7 @@ namespace WebAtividadeEntrevista.Controllers
                     CPF = model.CPF
                 });
 
-
-                return Json("Cadastro efetuado com sucesso");
+                return Json(model.Id);
             }
         }
 
@@ -113,7 +112,7 @@ namespace WebAtividadeEntrevista.Controllers
                     CPF = model.CPF
                 });
                                
-                return Json("Cadastro alterado com sucesso");
+                return Json(model.Id);
             }
         }
 
