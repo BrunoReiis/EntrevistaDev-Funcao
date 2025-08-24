@@ -7,30 +7,51 @@ namespace FI.AtividadeEntrevista.BLL
 {
     public class BoBeneficiario
     {
+        /// <summary>
+        /// Incluir um novo beneficiario
+        /// </summary>
+        /// <param name="beneficiario">Objeto de beneficiario</param>
         public long Incluir(Beneficiario beneficiario)
         {
             var bene = new DAL.DaoBeneficiario();
             return bene.Incluir(beneficiario);
         }
 
+        /// <summary>
+        /// Alterar um beneficiario
+        /// </summary>
+        /// <param name="beneficiario">Objeto de beneficiario</param>
         public void Alterar(Beneficiario beneficiario)
         {
             var bene = new DAL.DaoBeneficiario();
             bene.Alterar(beneficiario);
         }
 
+        /// <summary>
+        /// Excluir um beneficiario
+        /// </summary>
+        /// <param name="beneficiario">Id de beneficiario</param>
         public void Excluir(long beneficiario)
         {
             var bene = new DAL.DaoBeneficiario();
             bene.Excluir(beneficiario);
         }
 
-        public List<Beneficiario> ListarPorCliente(long beneficiario)
+        /// <summary>
+        /// Listar beneficiarios por cliente
+        /// </summary>
+        /// <param name="idCliente">Id do cliente vinculado ao beneficiario</param>
+        public List<Beneficiario> ListarPorCliente(long idCliente)
         {
             var bene = new DAL.DaoBeneficiario();
-            return bene.ListarPorCliente(beneficiario);
+            return bene.ListarPorCliente(idCliente);
         }
 
+        /// <summary>
+        /// Atualiza a lista de beneficiarios do cliente
+        /// </summary>
+        /// <param name="idCliente">Id do cliente vinculado ao beneficiario</param>
+        /// <param name="lista">Lista de beneficiarios</param>
         public void AtualizarLista(long idCliente, List<Beneficiario> lista)
         {
             var existentes = this.ListarPorCliente(idCliente);

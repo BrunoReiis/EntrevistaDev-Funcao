@@ -9,6 +9,10 @@ namespace FI.AtividadeEntrevista.DAL
 {
     internal class DaoBeneficiario : AcessoDados
     {
+        /// <summary>
+        /// Incluir um novo beneficiario
+        /// </summary>
+        /// <param name="beneficiario">Objeto de beneficiario</param>
         internal long Incluir(Beneficiario beneficiario)
         {
             var parametros = new List<System.Data.SqlClient.SqlParameter>
@@ -25,6 +29,10 @@ namespace FI.AtividadeEntrevista.DAL
             return ret;
         }
 
+        /// <summary>
+        /// Alterar um beneficiario
+        /// </summary>
+        /// <param name="beneficiario">Objeto de beneficiario</param>
         internal void Alterar(Beneficiario beneficiario)
         {
             var parametros = new List<System.Data.SqlClient.SqlParameter>
@@ -36,6 +44,10 @@ namespace FI.AtividadeEntrevista.DAL
             base.Executar("FI_SP_AltBeneficiario", parametros);
         }
 
+        /// <summary>
+        /// Excluir beneficiario
+        /// </summary>
+        /// <param name="id">Id de beneficiario</param>
         internal void Excluir(long id)
         {
             var parametros = new List<System.Data.SqlClient.SqlParameter>
@@ -45,6 +57,10 @@ namespace FI.AtividadeEntrevista.DAL
             base.Executar("FI_SP_DelBeneficiario", parametros);
         }
 
+        /// <summary>
+        /// Listar beneficiarios por cliente
+        /// </summary>
+        /// <param name="idCliente">Id do cliente que pertence o beneficiario</param>
         internal List<Beneficiario> ListarPorCliente(long idCliente)
         {
             var parametros = new List<System.Data.SqlClient.SqlParameter>
